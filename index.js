@@ -8,14 +8,19 @@ const dotenv = require('dotenv').config()
 const PORT = process.env.PORT || 4000;
 
 const authRouter = require('./routes/authRoutes')
+const productRouter = require('./routes/productRoutes')
+const morgan = require('morgan');
 dbConnect();
 
+app.use(morgan("dev"));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser());
 
 
 app.use('/api',authRouter);
+app.use('/api',productRouter);
+
 
 app.use(notFound);
 app.use(errorHandler)
